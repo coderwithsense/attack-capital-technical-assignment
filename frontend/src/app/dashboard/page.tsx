@@ -75,66 +75,58 @@ export default function DashboardPage() {
 
   return (
     <ProtectedRoute>
-      <div className="max-w-2xl mx-auto mt-10">
-        <h1 className="text-3xl font-bold mb-6">Your Dashboard</h1>
+      <div className="min-h-screen bg-gray-50">
+        <div className="max-w-2xl mx-auto py-12 px-4">
+          <h1 className="text-2xl font-light text-gray-900 mb-12">Dashboard</h1>
 
-        <section className="mb-8">
-          <h2 className="text-2xl font-semibold mb-4">Create a New Post</h2>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="title" className="block mb-1">
-                Title
-              </label>
+          <div className="bg-white border border-gray-200 p-8 mb-8">
+            <h2 className="text-lg font-medium text-gray-900 mb-6">New Post</h2>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <input
                 type="text"
-                id="title"
+                placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 required
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border-0 border-b border-gray-200 py-3 px-0 text-gray-900 placeholder-gray-400 focus:border-gray-900 focus:outline-none focus:ring-0"
               />
-            </div>
-            <div>
-              <label htmlFor="content" className="block mb-1">
-                Content
-              </label>
               <textarea
-                id="content"
+                placeholder="Write your post..."
                 value={content}
                 onChange={(e) => setContent(e.target.value)}
-                rows={5}
+                rows={4}
                 required
-                className="w-full border px-3 py-2 rounded"
+                className="w-full border-0 border-b border-gray-200 py-3 px-0 text-gray-900 placeholder-gray-400 focus:border-gray-900 focus:outline-none focus:ring-0 resize-none"
               />
-            </div>
-            {error && <p className="text-red-600">{error}</p>}
-            <button
-              type="submit"
-              className="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
-            >
-              Post
-            </button>
-          </form>
-        </section>
+              {error && <p className="text-red-500 text-sm">{error}</p>}
+              <button
+                type="submit"
+                className="bg-gray-900 text-white px-6 py-2 text-sm font-medium hover:bg-gray-800 transition-colors"
+              >
+                Publish
+              </button>
+            </form>
+          </div>
 
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Your Posts</h2>
-          {myPosts.length === 0 ? (
-            <p>You haven't posted anything yet.</p>
-          ) : (
-            <ul className="space-y-4">
-              {myPosts.map((post) => (
-                <li key={post._id} className="border p-4 rounded-lg hover:shadow">
-                  <h3 className="text-xl font-semibold">{post.title}</h3>
-                  <p className="text-gray-600 text-sm">
-                    Created at {new Date(post.createdAt).toLocaleString()}
-                  </p>
-                  <p className="mt-2">{post.content}</p>
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+          <div className="space-y-4">
+            <h2 className="text-lg font-medium text-gray-900">Your Posts</h2>
+            {myPosts.length === 0 ? (
+              <p className="text-gray-500 text-sm">No posts yet</p>
+            ) : (
+              <div className="space-y-6">
+                {myPosts.map((post) => (
+                  <div key={post._id} className="bg-white border border-gray-200 p-6">
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">{post.title}</h3>
+                    <p className="text-gray-400 text-xs mb-4">
+                      {new Date(post.createdAt).toLocaleDateString()}
+                    </p>
+                    <p className="text-gray-700 leading-relaxed">{post.content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </ProtectedRoute>
   );
